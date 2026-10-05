@@ -1,16 +1,18 @@
-"""Non-LLM baselines for Set 10: length-only and bag-of-words logistic regression.
+"""Non-LLM baselines: length-only and bag-of-words logistic regression.
 
-Both are fit on all Set 10 train responses (dev + remainder = 1640). By default this reports
-nested 5-fold cross-validation on train only. --test fits on all of train and evaluates on the
-official test set; run it once, alongside the LLM's single test run (eda/prereg_remainder.md).
+Both are fit on all train responses of the set (dev + remainder; 1640 for Set 10). By default this
+reports nested 5-fold cross-validation on train only. --test fits on all of train and evaluates on the
+official test set; run it once, alongside the LLM's single test run (set10/eda/prereg_remainder.md).
 
 Text variant for the final bag-of-words baseline: wraps repaired if its CV QWK >= raw (decided on train CV).
 
-Usage:
-  python baselines.py          # nested CV on train
-  python baselines.py --test   # final test evaluation
+Usage (from the repo root):
+  python common/baselines.py --set 10          # nested CV on train
+  python common/baselines.py --set 10 --test   # final test evaluation
 """
 import argparse
+import importlib
+import sys
 
 import numpy as np
 import pandas as pd
@@ -20,15 +22,16 @@ from sklearn.model_selection import GridSearchCV, StratifiedKFold, cross_val_pre
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import FunctionTransformer
 
-from evaluate import report
-from text_clean import build_vocab, repair
+sys.path.insert(0, '.')
+from common.evaluate import report
+from common.text_clean import build_vocab, repair
 
-SET = 10
+conf = None  # set{N}.config, loaded in main()
 
 
 def body_words(texts):
-    """log(1 + number of words in the student's text, after the 'color ::' prefix)."""
-    bodies = pd.Series(texts).str.split('::', n=1).str[1].fillna('')
+    """log(1 + number of words in the student's own text, without any menu prefix)."""
+    bodies = pd.Series([conf.body(t) for t in texts])
     return np.log1p(bodies.str.split().str.len().to_numpy()).reshape(-1, 1)
 
 
@@ -47,9 +50,13 @@ def models(vocab):
 
 
 def main():
+    global conf
     ap = argparse.ArgumentParser()
+    ap.add_argument('--set', type=int, required=True)
     ap.add_argument('--test', action='store_true', help='fit on all train and evaluate on the test set (run once)')
     args = ap.parse_args()
+    conf = importlib.import_module(f'set{args.set}.config')
+    SET = args.set
 
     train = pd.concat([pd.read_csv(f'data/set{SET}/dev.csv'), pd.read_csv(f'data/set{SET}/remainder.csv')])
     X, y = train.text.to_numpy(), train.Score1.to_numpy()
@@ -70,7 +77,7 @@ def main():
             rows.append(report(test.Score1, out[name], f'{name} (test)'))
             if name.startswith('bag-of-words'):
                 print(name, 'chosen C:', model.best_params_)
-        out.to_csv('results/baselines_test_predictions.csv', index=False)
+        out.to_csv(f'set{SET}/results/baselines_test_predictions.csv', index=False)
     print(pd.DataFrame(rows).to_string(index=False))
 
 

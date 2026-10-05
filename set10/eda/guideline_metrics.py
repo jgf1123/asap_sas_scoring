@@ -7,18 +7,18 @@ import pandas as pd
 from scipy.stats import pearsonr
 
 sys.path.insert(0, '.')
-from evaluate import load_run, qwk
-from score_from_codes import score
+from common.evaluate import load_run, qwk
+from set10.score_from_codes import score
 
 train = pd.concat([pd.read_csv('data/set10/dev.csv'), pd.read_csv('data/set10/remainder.csv')])
 hh_q, hh_r = qwk(train.Score1, train.Score2), pearsonr(train.Score1, train.Score2).statistic
 hh_disc = (abs(train.Score1 - train.Score2) == 2).mean()
 
-m = load_run('results/test_v1.2.jsonl').merge(pd.read_csv('data/set10/test.csv'), on='Id')
+m = load_run('set10/results/test_v1.2.jsonl').merge(pd.read_csv('data/set10/test.csv'), on='Id')
 m['group'] = m.text.str.split('::').str[0].str.contains('gray').map({True: 'gray', False: 'white/black'})
 for name, c in (('LLM all-b (pre-registered)', 'bbbbbb'), ('LLM all-a', 'aaaaaa')):
     m[name] = [score(r, dict(zip(['B1', 'B2', 'B3', 'B4', 'B5', 'B6'], c))) for r in m.to_dict('records')]
-base = pd.read_csv('results/baselines_test_predictions.csv')
+base = pd.read_csv('set10/results/baselines_test_predictions.csv')
 m = m.merge(base.rename(columns={'bag-of-words (wraps repaired)': 'bag-of-words'})[['Id', 'bag-of-words']], on='Id')
 
 rows = [{'scorer': 'human-human (train, n=1640)', 'QWK': hh_q, 'r': hh_r, 'disc. rate': hh_disc}]

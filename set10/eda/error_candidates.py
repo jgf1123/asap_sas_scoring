@@ -1,14 +1,14 @@
 """Candidate error-analysis cases: test disagreements under the selected config (all-b), tagged by deciding rule.
 
-Writes eda/error_candidates.md (git-ignored: quotes student responses).
+Writes set10/eda/error_candidates.md (git-ignored: quotes student responses).
 """
 import sys
 
 import pandas as pd
 
 sys.path.insert(0, '.')
-from evaluate import load_run
-from score_from_codes import has, score
+from common.evaluate import load_run
+from set10.score_from_codes import has, score
 
 CODES = ['E', 'J', 'D', 'N', 'P', 'L', 'U']
 A, B = (dict(zip(['B1', 'B2', 'B3', 'B4', 'B5', 'B6'], c)) for c in ('aaaaaa', 'bbbbbb'))
@@ -34,7 +34,7 @@ def deciding_rule(r, cfg):
     return 'O3 nothing'
 
 
-m = load_run('results/test_v1.2.jsonl').merge(pd.read_csv('data/set10/test.csv'), on='Id')
+m = load_run('set10/results/test_v1.2.jsonl').merge(pd.read_csv('data/set10/test.csv'), on='Id')
 m['group'] = m.text.str.split('::').str[0].str.contains('gray').map({True: 'gray', False: 'white/black'})
 recs = m.to_dict('records')
 m['b'] = [score(x, B) for x in recs]
@@ -60,5 +60,5 @@ for r in picks.itertuples():
     lines += [f'## {r.Id}: Score1 {r.Score1} -> LLM {r.b} ({r.cell}); rule: {r.rule}; all-a gives {r.a}',
               f'- **Codes:** {codes}; flags: {r.flags or "none"}', f'- **LLM rationale:** {r.rationale}',
               f'- **Response:** {r.text}', '']
-open('eda/error_candidates.md', 'w', encoding='utf-8').write('\n'.join(lines))
-print(f'\n{len(picks)} candidates written to eda/error_candidates.md')
+open('set10/eda/error_candidates.md', 'w', encoding='utf-8').write('\n'.join(lines))
+print(f'\n{len(picks)} candidates written to set10/eda/error_candidates.md')

@@ -1,6 +1,6 @@
 """Pilot check: well-formedness, cost, LLM vs Score1, LLM score vs its own codes, LLM codes vs hand codes.
 
-Usage: python eda/pilot_check.py results/pilot1.jsonl
+Usage: python set10/eda/pilot_check.py set10/results/pilot1.jsonl
 """
 import json
 import sys
@@ -8,7 +8,7 @@ import sys
 import pandas as pd
 
 sys.path.insert(0, '.')
-from score_from_codes import score
+from set10.score_from_codes import score
 
 PRICE = {'claude-opus-5-5': (4.00, 20.00, 0.20, 5.00), 'claude-sonnet-5-5': (2.00, 10.00, 0.20, 2.50)}  # in, out, cache read, cache write ($/MTok)
 CODES = ['E', 'J', 'D', 'N', 'P', 'L', 'U']
@@ -27,7 +27,7 @@ print(f'cost: ${cost.sum():.3f} total, ${cost.mean():.4f}/response | {r.seconds.
 
 cfg = dict(zip(['B1', 'B2', 'B3', 'B4', 'B5', 'B6'], r.cfg.iloc[0]))
 r['flags'] = r['flags'].apply(';'.join)  # r.flags is DataFrame metadata, not the column
-dev = pd.read_csv('data/set10/dev.csv').merge(pd.read_csv('eda/dev_codes.csv'), on='Id', suffixes=('', '_hand'))
+dev = pd.read_csv('data/set10/dev.csv').merge(pd.read_csv('set10/eda/dev_codes.csv'), on='Id', suffixes=('', '_hand'))
 m = r.merge(dev, on='Id', suffixes=('_llm', '_hand'))
 m['from_codes'] = m.apply(lambda x: score({**{c: x[f'{c}_llm'] for c in CODES}, 'flags': x['flags_llm'], 'group': x['group']}, cfg), axis=1)
 

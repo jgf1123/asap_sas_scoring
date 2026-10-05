@@ -1,6 +1,6 @@
 """Two repeat LLM runs on dev: agreement with Score1, run-to-run noise, LLM vs hand codes, config sweep.
 
-Usage: python eda/dev_runs_analysis.py results/dev_v1.1_r1.jsonl results/dev_v1.1_r2.jsonl
+Usage: python set10/eda/dev_runs_analysis.py set10/results/dev_v1.1_r1.jsonl set10/results/dev_v1.1_r2.jsonl
 """
 import itertools
 import sys
@@ -9,15 +9,15 @@ import pandas as pd
 from sklearn.metrics import cohen_kappa_score
 
 sys.path.insert(0, '.')
-from evaluate import load_run, paired_qwk_diff_ci, qwk, report
-from score_from_codes import score
+from common.evaluate import load_run, paired_qwk_diff_ci, qwk, report
+from set10.score_from_codes import score
 
 CODES = ['E', 'J', 'D', 'N', 'P', 'L', 'U']
 RULES = ['B1', 'B2', 'B3', 'B4', 'B5', 'B6']
 PREREG = {'all-a': 'aaaaaa', 'dev-best (hand codes)': 'bababb', 'all-b': 'bbbbbb'}
 
 dev = pd.read_csv('data/set10/dev.csv')
-hand = pd.read_csv('eda/dev_codes.csv').fillna({'flags': ''})
+hand = pd.read_csv('set10/eda/dev_codes.csv').fillna({'flags': ''})
 runs = [load_run(p).merge(dev, on='Id').merge(hand[['Id', 'group']], on='Id') for p in sys.argv[1:3]]
 ids = sorted(set(runs[0].Id) & set(runs[1].Id))
 r1, r2 = (r.set_index('Id').loc[ids] for r in runs)

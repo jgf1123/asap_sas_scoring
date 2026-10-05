@@ -1,4 +1,4 @@
-"""Pre-registered test analysis (eda/prereg_remainder.md): selected config (all-b) and all-a, plus baselines.
+"""Pre-registered test analysis (set10/eda/prereg_remainder.md): selected config (all-b) and all-a, plus baselines.
 
 Test has a single human score (Score1); degradation uses human-human QWK on Set 10 train (Score1 vs Score2).
 Run after the single LLM test run and `python baselines.py --test`.
@@ -8,12 +8,12 @@ import sys
 import pandas as pd
 
 sys.path.insert(0, '.')
-from evaluate import load_run, qwk, report
-from score_from_codes import score
+from common.evaluate import load_run, qwk, report
+from set10.score_from_codes import score
 
 RULES = ['B1', 'B2', 'B3', 'B4', 'B5', 'B6']
-raw = [l for l in open('results/test_v1.2.jsonl', encoding='utf-8')]
-r = load_run('results/test_v1.2.jsonl')
+raw = [l for l in open('set10/results/test_v1.2.jsonl', encoding='utf-8')]
+r = load_run('set10/results/test_v1.2.jsonl')
 assert len(raw) == len(r) == 546 and set(r.prompt_hash) == {'34e06a141c41'}, 'test run incomplete or wrong prompt'
 
 test = pd.read_csv('data/set10/test.csv')
@@ -25,7 +25,7 @@ for name, c in (('all-b', 'bbbbbb'), ('all-a', 'aaaaaa')):
 
 train = pd.concat([pd.read_csv('data/set10/dev.csv'), pd.read_csv('data/set10/remainder.csv')])
 hh = qwk(train.Score1, train.Score2)
-base = pd.read_csv('results/baselines_test_predictions.csv').merge(test[['Id', 'Score1']], on='Id')
+base = pd.read_csv('set10/results/baselines_test_predictions.csv').merge(test[['Id', 'Score1']], on='Id')
 
 rows = [report(m.Score1, m['all-b'], 'LLM codes -> rules, all-b (selected)', hh),
         report(m.Score1, m['all-a'], 'LLM codes -> rules, all-a', hh),
@@ -39,7 +39,7 @@ for n in ('all-b', 'all-a'):
     print(f'\nConfusion {n} (rows Score1):'); print(pd.crosstab(m.Score1, m[n]))
 
 # Exploratory (not pre-registered): paired bootstrap, LLM configs vs the bag-of-words baseline on test.
-from evaluate import paired_qwk_diff_ci
+from common.evaluate import paired_qwk_diff_ci
 mb = m.merge(base[['Id', 'bag-of-words (wraps repaired)']], on='Id')
 print('\nExploratory paired comparisons on test:')
 for n in ('all-b', 'all-a'):

@@ -6,7 +6,7 @@ import sys
 import pandas as pd
 
 sys.path.insert(0, '.')
-from text_clean import build_vocab, in_zone, repair, split_prefix
+from common.text_clean import build_vocab, in_zone, repair, split_prefix
 
 texts = pd.concat([pd.read_csv('data/set10/dev.csv'), pd.read_csv('data/set10/remainder.csv')]).text.tolist()
 vocab = build_vocab(texts)

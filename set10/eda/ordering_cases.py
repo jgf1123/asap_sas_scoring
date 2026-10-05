@@ -4,10 +4,10 @@ import sys
 import pandas as pd
 
 sys.path.insert(0, '.')
-from evaluate import load_run
-from score_from_codes import score
+from common.evaluate import load_run
+from set10.score_from_codes import score
 
-m = load_run('results/test_v1.2.jsonl').merge(pd.read_csv('data/set10/test.csv'), on='Id')
+m = load_run('set10/results/test_v1.2.jsonl').merge(pd.read_csv('data/set10/test.csv'), on='Id')
 m['group'] = m.text.str.split('::').str[0].str.contains('gray').map({True: 'gray', False: 'white/black'})
 cfg = dict(zip(['B1', 'B2', 'B3', 'B4', 'B5', 'B6'], 'bbbbbb'))
 m['b'] = [score(r, cfg) for r in m.to_dict('records')]

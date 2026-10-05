@@ -3,10 +3,12 @@
 Metrics follow the automated-scoring framework of Williamson, Xi & Breyer (2012):
 QWK (>= 0.70), degradation vs human-human QWK (<= 0.10), standardized mean difference (|SMD| <= 0.15).
 
-Usage: python evaluate.py results/<run>.jsonl [--cfg aaaaaa]
-  Scores the run against Score1 using the LLM's own score and the score computed from its codes.
+Usage (from the repo root): python common/evaluate.py --set 10 set10/results/<run>.jsonl [--cfg aaaaaa]
+  Scores the run against Score1 using the LLM's own score and the score computed from its codes
+  (set{N}/config.py codes_score).
 """
 import argparse
+import importlib
 import json
 
 import numpy as np
@@ -68,23 +70,23 @@ def load_run(path):
 def main():
     import sys
     sys.path.insert(0, '.')
-    from score_from_codes import score
 
     ap = argparse.ArgumentParser()
+    ap.add_argument('--set', type=int, required=True)
     ap.add_argument('run')
     ap.add_argument('--cfg', help='boundary config for code-derived scores (default: the run\'s own)')
     args = ap.parse_args()
 
+    conf = importlib.import_module(f'set{args.set}.config')
     r = load_run(args.run)
     split = r.split.iloc[0]
-    data = pd.read_csv(f'data/set10/{split}.csv')
+    data = pd.read_csv(f'data/set{args.set}/{split}.csv')
     m = r.merge(data, on='Id')
-    cfg = dict(zip(['B1', 'B2', 'B3', 'B4', 'B5', 'B6'], args.cfg or r.cfg.iloc[0]))
-    group = m.text.str.split('::').str[0].str.contains('gray').map({True: 'gray', False: 'white/black'})
-    m['from_codes'] = [score({**row, 'group': g}, cfg) for row, g in zip(m.to_dict('records'), group)]
+    cfg = args.cfg or r.cfg.iloc[0]
+    m['from_codes'] = [conf.codes_score(row, cfg) for row in m.to_dict('records')]
 
     hh = qwk(m.Score1, m.Score2) if 'Score2' in m else None
-    rows = [report(m.Score1, m.score, 'LLM score', hh), report(m.Score1, m.from_codes, f'codes->rules ({"".join(cfg.values())})', hh)]
+    rows = [report(m.Score1, m.score, 'LLM score', hh), report(m.Score1, m.from_codes, f'codes->rules ({cfg})', hh)]
     if 'Score2' in m:
         rows.append(report(m.Score1, m.Score2, 'Score2 (human reference)'))
     print(f'{args.run}: {len(m)} scored responses ({split})')

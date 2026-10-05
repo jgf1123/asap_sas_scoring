@@ -1,14 +1,14 @@
 # pixi environments
 .pixi
 data/
-results/*.log
+set*/results/*.log
 __pycache__/
-# generated reading lists quote student responses (Kaggle data: do not redistribute); regenerate with eda/step3*.py
-eda/step3_reading_list.md
-eda/step3e_exceptions.md
+# generated reading lists quote student responses (Kaggle data: do not redistribute); regenerate with set10/eda/step3*.py
+set*/eda/step3_reading_list.md
+set*/eda/step3e_exceptions.md
 # may contain student responses or fragments (Kaggle data: do not redistribute)
-results/*.jsonl
-eda/*_codes.csv
+set*/results/*.jsonl
+set*/eda/*_codes.csv
 # v1.1 prompt snapshots contain a near-verbatim student example (paraphrased in v1.2)
-results/*v1.1*.prompt.txt
-eda/error_candidates.md
+set*/results/*v1.1*.prompt.txt
+set*/eda/error_candidates.md

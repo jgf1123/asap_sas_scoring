@@ -1,17 +1,17 @@
-"""Pre-registered remainder analysis (eda/prereg_remainder.md): 3 configs, all 1340 and excluding the 60 blind-coded."""
+"""Pre-registered remainder analysis (set10/eda/prereg_remainder.md): 3 configs, all 1340 and excluding the 60 blind-coded."""
 import sys
 
 import pandas as pd
 
 sys.path.insert(0, '.')
-from evaluate import load_run, paired_qwk_diff_ci, qwk, report
-from score_from_codes import score
+from common.evaluate import load_run, paired_qwk_diff_ci, qwk, report
+from set10.score_from_codes import score
 
 CONFIGS = {'all-a': 'aaaaaa', 'majority': 'aaaabb', 'all-b': 'bbbbbb'}
 RULES = ['B1', 'B2', 'B3', 'B4', 'B5', 'B6']
 
-raw = [l for l in open('results/remainder_v1.2.jsonl', encoding='utf-8')]
-r = load_run('results/remainder_v1.2.jsonl')
+raw = [l for l in open('set10/results/remainder_v1.2.jsonl', encoding='utf-8')]
+r = load_run('set10/results/remainder_v1.2.jsonl')
 assert len(raw) == len(r) == 1340 and set(r.prompt_hash) == {'34e06a141c41'}, 'run incomplete or wrong prompt'
 m = r.merge(pd.read_csv('data/set10/remainder.csv'), on='Id')
 m['group'] = m.text.str.split('::').str[0].str.contains('gray').map({True: 'gray', False: 'white/black'})
@@ -20,7 +20,7 @@ for name, c in CONFIGS.items():
     m[name] = [score(row, cfg) for row in m.to_dict('records')]
 print(f'LLM own score == all-a from its codes (prompt used all-a): {(m.score == m["all-a"]).mean():.3f}')
 
-seen = set(pd.read_csv('eda/remainder_sample_ids.csv').Id)
+seen = set(pd.read_csv('set10/eda/remainder_sample_ids.csv').Id)
 for label, d in (('ALL 1340', m), ('EXCLUDING 60 blind-coded (n=%d)' % (~m.Id.isin(seen)).sum(), m[~m.Id.isin(seen)])):
     hh = qwk(d.Score1, d.Score2)
     print(f'\n=== {label} ===')

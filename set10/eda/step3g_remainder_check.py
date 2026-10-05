@@ -1,19 +1,19 @@
-"""Pre-registered check (eda/prereg_step2.md): frozen rules on 60 blind-coded remainder responses vs dev."""
+"""Pre-registered check (set10/eda/prereg_step2.md): frozen rules on 60 blind-coded remainder responses vs dev."""
 import sys
 
 import pandas as pd
 from sklearn.metrics import cohen_kappa_score
 
 sys.path.insert(0, '.')
-from score_from_codes import score
+from set10.score_from_codes import score
 
 CONFIGS = {'all-a': 'aaaaaa', 'dev-best': 'bababb', 'all-b': 'bbbbbb'}
 RULES = ['B1', 'B2', 'B3', 'B4', 'B5', 'B6']
 qwk = lambda a, b: cohen_kappa_score(a, b, weights='quadratic')
 
-rem = pd.read_csv('data/set10/remainder.csv').merge(pd.read_csv('eda/remainder_blind_codes.csv'), on='Id')
-assert len(rem) == 60 and set(rem.Id) == set(pd.read_csv('eda/remainder_sample_ids.csv').Id)
-dev = pd.read_csv('data/set10/dev.csv').merge(pd.read_csv('eda/dev_codes.csv'), on='Id')
+rem = pd.read_csv('data/set10/remainder.csv').merge(pd.read_csv('set10/eda/remainder_blind_codes.csv'), on='Id')
+assert len(rem) == 60 and set(rem.Id) == set(pd.read_csv('set10/eda/remainder_sample_ids.csv').Id)
+dev = pd.read_csv('data/set10/dev.csv').merge(pd.read_csv('set10/eda/dev_codes.csv'), on='Id')
 
 rows = []
 for name, cfg in CONFIGS.items():

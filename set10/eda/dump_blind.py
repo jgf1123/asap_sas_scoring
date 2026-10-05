@@ -1,6 +1,6 @@
 """Print dev responses for the given color group WITHOUT scores, for blind hand-coding.
 
-Usage: python eda/dump_blind.py gray|extreme
+Usage: python set10/eda/dump_blind.py gray|extreme
 """
 import sys
 import pandas as pd

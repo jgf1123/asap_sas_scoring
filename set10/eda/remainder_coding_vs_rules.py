@@ -5,12 +5,12 @@ import pandas as pd
 from sklearn.metrics import cohen_kappa_score
 
 sys.path.insert(0, '.')
-from evaluate import load_run, qwk
-from score_from_codes import score
+from common.evaluate import load_run, qwk
+from set10.score_from_codes import score
 
 CODES = ['E', 'J', 'D', 'N', 'P', 'L', 'U']
-hand = pd.read_csv('eda/remainder_blind_codes.csv').fillna({'flags': ''})
-llm = load_run('results/remainder_v1.2.jsonl').merge(hand[['Id', 'group']], on='Id')
+hand = pd.read_csv('set10/eda/remainder_blind_codes.csv').fillna({'flags': ''})
+llm = load_run('set10/results/remainder_v1.2.jsonl').merge(hand[['Id', 'group']], on='Id')
 rem = pd.read_csv('data/set10/remainder.csv').set_index('Id')
 h, l = hand.set_index('Id'), llm.set_index('Id').loc[hand.Id]
 s1, s2 = rem.loc[hand.Id, 'Score1'], rem.loc[hand.Id, 'Score2']

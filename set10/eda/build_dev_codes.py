@@ -1,4 +1,4 @@
-"""Build eda/dev_codes.csv: sharpened codes for all 300 Set 10 dev responses.
+"""Build set10/eda/dev_codes.csv: sharpened codes for all 300 Set 10 dev responses.
 
 Starts from the blind first-pass codes (gray_codes.csv, extreme_codes.csv) and applies the
 sharpened definitions as explicit, auditable overrides. The overrides were made AFTER seeing
@@ -17,8 +17,8 @@ Flags: consistency, hyp, vague, mismatch, physics
 """
 import pandas as pd
 
-gray = pd.read_csv('eda/gray_codes.csv').assign(group='gray', E=0)
-ext = pd.read_csv('eda/extreme_codes.csv').assign(group='white/black')
+gray = pd.read_csv('set10/eda/gray_codes.csv').assign(group='gray', E=0)
+ext = pd.read_csv('set10/eda/extreme_codes.csv').assign(group='white/black')
 d = pd.concat([gray, ext]).fillna({'note': ''}).set_index('Id')
 d[['P', 'U']] = 0
 d['flags'] = ''
@@ -83,6 +83,6 @@ flag('physics', [26140, 26219, 26514, 26762, 26763, 27046, 27142, 27202, 27248, 
 
 assert ((d.P == 0) | (d.N == 1)).all(), 'P requires N'
 cols = ['group', 'E', 'J', 'D', 'N', 'P', 'L', 'U', 'flags', 'note']
-d[cols].sort_index().to_csv('eda/dev_codes.csv')
+d[cols].sort_index().to_csv('set10/eda/dev_codes.csv')
 print(d[cols].groupby('group')[['E', 'J', 'D', 'N', 'P', 'L', 'U']].sum())
 print('rows:', len(d))

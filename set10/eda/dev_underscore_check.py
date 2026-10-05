@@ -4,11 +4,11 @@ import sys
 import pandas as pd
 
 sys.path.insert(0, '.')
-from evaluate import load_run
+from common.evaluate import load_run
 
 CODES = ['E', 'J', 'D', 'N', 'P', 'L', 'U']
-r = load_run('results/dev_v1.1_r1.jsonl').merge(pd.read_csv('data/set10/dev.csv'), on='Id')
-h = pd.read_csv('eda/dev_codes.csv').set_index('Id')
+r = load_run('set10/results/dev_v1.1_r1.jsonl').merge(pd.read_csv('data/set10/dev.csv'), on='Id')
+h = pd.read_csv('set10/eda/dev_codes.csv').set_index('Id')
 low = r[r.score < r.Score1]
 print('LLM below Score1, by (Score1 -> LLM) and whether LLM set U=1:')
 print(pd.crosstab([low.Score1, low.score], low.U))

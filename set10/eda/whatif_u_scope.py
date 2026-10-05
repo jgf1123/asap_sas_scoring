@@ -4,13 +4,13 @@ import sys
 import pandas as pd
 
 sys.path.insert(0, '.')
-from evaluate import load_run, qwk
-from score_from_codes import score
+from common.evaluate import load_run, qwk
+from set10.score_from_codes import score
 
 dev = pd.read_csv('data/set10/dev.csv')
-grp = pd.read_csv('eda/dev_codes.csv')[['Id', 'group']]
+grp = pd.read_csv('set10/eda/dev_codes.csv')[['Id', 'group']]
 for run in ('r1', 'r2'):
-    r = load_run(f'results/dev_v1.1_{run}.jsonl').merge(dev, on='Id').merge(grp, on='Id')
+    r = load_run(f'set10/results/dev_v1.1_{run}.jsonl').merge(dev, on='Id').merge(grp, on='Id')
     for name, cfgs in (('all-a', 'aaaaaa'), ('all-b', 'bbbbbb')):
         cfg = dict(zip(['B1', 'B2', 'B3', 'B4', 'B5', 'B6'], cfgs))
         rows = r.to_dict('records')

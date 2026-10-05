@@ -5,10 +5,10 @@ import sys
 import pandas as pd
 
 sys.path.insert(0, '.')
-from score_from_codes import score
+from set10.score_from_codes import score
 
 dev = pd.read_csv('data/set10/dev.csv')
-d = dev.merge(pd.read_csv('eda/dev_codes.csv'), on='Id')
+d = dev.merge(pd.read_csv('set10/eda/dev_codes.csv'), on='Id')
 agree, split = d[d.Score1 == d.Score2], d[d.Score1 != d.Score2]
 rules = ['B1', 'B2', 'B3', 'B4', 'B5', 'B6']
 

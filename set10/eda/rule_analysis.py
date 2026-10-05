@@ -6,7 +6,7 @@ reported results. Three analyses:
   2. Tier ablations: O -> O+C -> O+C+B -> +S, and leave-one-out / add-one
   3. Re-ranking: all orderings of the ranked rules; adjacent swaps of the current ranking
 
-Usage: python eda/rule_analysis.py remainder|test
+Usage: python set10/eda/rule_analysis.py remainder|test
 """
 import itertools
 import sys
@@ -15,11 +15,11 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, '.')
-from evaluate import load_run, paired_qwk_diff_ci, qwk
-from score_from_codes import score
+from common.evaluate import load_run, paired_qwk_diff_ci, qwk
+from set10.score_from_codes import score
 
 SPLIT = sys.argv[1] if len(sys.argv) > 1 else 'remainder'
-RUN = {'remainder': 'results/remainder_v1.2.jsonl', 'test': 'results/test_v1.2.jsonl'}[SPLIT]
+RUN = {'remainder': 'set10/results/remainder_v1.2.jsonl', 'test': 'set10/results/test_v1.2.jsonl'}[SPLIT]
 
 m = load_run(RUN).merge(pd.read_csv(f'data/set10/{SPLIT}.csv'), on='Id')
 m['group'] = m.text.str.split('::').str[0].str.contains('gray').map({True: 'gray', False: 'white/black'})

@@ -2,7 +2,8 @@
 
 Digitizing handwritten lines inserted a space at each line wrap, often splitting a word ("dogho use").
 Wraps fall near fixed offsets in the student's text (after the "color ::" prefix): 45, then about
-every 73 characters, wobbling by a character or two (eda/space_artifact.py, eda/wrap_artifact_check.py).
+every 73 characters, wobbling by a character or two (set10/eda/space_artifact.py, set10/eda/wrap_artifact_check.py).
+The offsets and the "color ::" prefix handling were derived on Set 10; check both before using on another set.
 
 Repair rule: at a space within TOL characters of an expected wrap offset, with letters on both sides,
 join the two fragments if the joined word is in the corpus vocabulary and either a fragment is not, or the

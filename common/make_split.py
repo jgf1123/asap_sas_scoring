@@ -4,7 +4,7 @@ dev        300 random train responses (seed 0): prompt iteration
 remainder  rest of train: untouched until the prompt-overfitting check
 test       official public-leaderboard responses + released labels: final evaluation, run once
 
-Usage: python make_split.py 10
+Usage (from the repo root): python common/make_split.py 10
 """
 import sys
 from pathlib import Path

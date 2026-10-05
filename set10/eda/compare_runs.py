@@ -1,6 +1,6 @@
 """Compare two scoring runs response by response: score and code differences.
 
-Usage: python eda/compare_runs.py results/a.jsonl results/b.jsonl
+Usage: python set10/eda/compare_runs.py set10/results/a.jsonl set10/results/b.jsonl
 """
 import json
 import sys

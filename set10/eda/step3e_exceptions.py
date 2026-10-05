@@ -1,11 +1,11 @@
-"""Agreed dev responses whose score the current code rule mispredicts. Writes eda/step3e_exceptions.md."""
+"""Agreed dev responses whose score the current code rule mispredicts. Writes set10/eda/step3e_exceptions.md."""
 import pandas as pd
 
 dev = pd.read_csv('data/set10/dev.csv')
 dev['color'] = dev.text.str.split('::').str[0].str.strip().str.lower()
 dev['body'] = dev.text.str.split('::', n=1).str[1].str.strip()
-gray = dev.merge(pd.read_csv('eda/gray_codes.csv'), on='Id').assign(group='gray', E=None)
-ext = dev.merge(pd.read_csv('eda/extreme_codes.csv'), on='Id').assign(group='white/black')
+gray = dev.merge(pd.read_csv('set10/eda/gray_codes.csv'), on='Id').assign(group='gray', E=None)
+ext = dev.merge(pd.read_csv('set10/eda/extreme_codes.csv'), on='Id').assign(group='white/black')
 d = pd.concat([gray, ext]).fillna({'note': ''})
 assert len(d) == len(dev)
 
@@ -28,4 +28,4 @@ for (p, a), g in exc.groupby(['predicted', 'Score1']):
         e = '' if pd.isna(r.E) else int(r.E)
         lines.append(f'| {r.Id} | {r.group} | {e} | {r.D} | {r.N} | {r.J} | {r.L} | {r.note} | **{r.color}** :: {r.body.replace("|", "/")} |')
     lines.append('')
-open('eda/step3e_exceptions.md', 'w', encoding='utf-8').write('\n'.join(lines))
+open('set10/eda/step3e_exceptions.md', 'w', encoding='utf-8').write('\n'.join(lines))

@@ -1,6 +1,6 @@
 """Step 3: prior model (log words + color) on dev with 5-fold CV; build a surprise-ranked reading list.
 
-Writes eda/step3_reading_list.md. Dev only.
+Writes set10/eda/step3_reading_list.md. Dev only.
 """
 import numpy as np
 import pandas as pd
@@ -42,5 +42,5 @@ for s in (0, 1, 2):
     g = agree[agree.Score1 == s]
     out += block(g.nlargest(5, 'surprise'), f'Agreed score {s}: most surprising given priors')
     out += block(g.nsmallest(3, 'surprise'), f'Agreed score {s}: typical given priors')
-open('eda/step3_reading_list.md', 'w', encoding='utf-8').write('\n'.join(out) + '\n')
-print(f'\nRaters split: {len(split)} | reading list written: eda/step3_reading_list.md')
+open('set10/eda/step3_reading_list.md', 'w', encoding='utf-8').write('\n'.join(out) + '\n')
+print(f'\nRaters split: {len(split)} | reading list written: set10/eda/step3_reading_list.md')

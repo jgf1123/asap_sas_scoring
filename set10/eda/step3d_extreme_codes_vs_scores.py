@@ -3,7 +3,7 @@ import pandas as pd
 
 dev = pd.read_csv('data/set10/dev.csv')
 dev = dev[~dev.text.str.split('::').str[0].str.contains('gray')]
-codes = pd.read_csv('eda/extreme_codes.csv').fillna('')
+codes = pd.read_csv('set10/eda/extreme_codes.csv').fillna('')
 assert set(codes.Id) == set(dev.Id) and codes.Id.is_unique, 'codes must cover every white/black dev response once'
 d = dev.merge(codes, on='Id')
 d['offtarget'] = d.note.str.contains('off-target').astype(int)
