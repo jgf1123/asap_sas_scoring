@@ -11,3 +11,4 @@ results/*.jsonl
 eda/*_codes.csv
 # v1.1 prompt snapshots contain a near-verbatim student example (paraphrased in v1.2)
 results/*v1.1*.prompt.txt
+eda/error_candidates.md
