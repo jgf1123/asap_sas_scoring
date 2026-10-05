@@ -15,9 +15,10 @@ Can a large language model score student short answers the way trained human rat
 *QWK* measures agreement on an ordinal scale, corrected for chance, with disagreements penalized by their squared size: 1 is perfect agreement, 0 is chance. *SMD* (standardized mean difference) is the mean machine score minus the mean human score, divided by their pooled standard deviation; positive means the machine is more lenient. Confidence intervals are percentile bootstraps over responses.
 
 - **Against the supervised baseline**, the LLM is modestly better. The paired bootstrap difference on the same 546 responses is +0.054 [+0.002, +0.109] for the pre-registered configuration and +0.065 [+0.011, +0.123] for the official-leaning one. This paired test was added after the test run and was not pre-registered.
-- **Against operational guidelines** for automated scoring (Williamson, Xi & Breyer, 2012), the pre-registered configuration meets QWK ≥ 0.70 and |SMD| ≤ 0.15 but narrowly misses the guideline that machine–human QWK be no more than 0.10 below human–human QWK (0.884 − 0.763 = 0.12). The human–human figure is from the training set, because the test set has a single human score per response, so this comparison is approximate. <!-- TODO: verify thresholds against the primary source before publishing -->
+- **Against operational guidelines** for automated scoring (Williamson, Xi & Breyer, 2012): machine–human QWK of at least 0.70, chosen there as the "tipping point" at which signal outweighs noise; machine–human QWK and Pearson correlation each no more than 0.10 below human–human agreement; and |SMD| ≤ 0.15. The pre-registered configuration meets the 0.70 floor (QWK 0.763, r 0.767) and the SMD limit, and narrowly misses the degradation guideline (QWK 0.12 and r 0.12 below human–human; the official-leaning configuration is 0.109 and 0.103 below). The authors treat these as guidelines rather than hard cutoffs and report using a model operationally whose machine–human QWK was 0.69 against a human–human 0.71. The human–human figures are from the training set, because the test set has a single human score per response, so the degradation comparison is approximate.
+- **Discrepancies.** In human scoring, raters differing by one point usually count as agreeing, and a larger difference sends the response to adjudication. On this 0–2 scale, a discrepancy is a 0 against a 2. The two human raters had none across the 1,640 training responses; the LLM had 2 of 546 test responses (0.4%), and the bag-of-words baseline 3.
 - **The two configurations are interchangeable.** The pre-registered selection rule picked the rater-leaning configuration because it was +0.010 better on the validation set; on test it was −0.011 [−0.044, +0.020] worse. The selection was effectively a coin flip.
-- **Severe errors are rare.** Under the pre-registered configuration, 2 of 546 responses are off by two points. Most disagreement is at the boundary between 0 and 1.
+- **Most disagreement is at the boundary between 0 and 1**, where the two configurations err in opposite directions: the official-leaning one is harsher and the rater-leaning one more lenient.
 
 ## The item and the data
 
@@ -86,7 +87,12 @@ This analysis was done after the test run and does not change the reported resul
 
 - **Cross-validate the rules themselves.** Because rules are applied to fixed model codes, rule sets and orderings can be selected inside k-fold cross-validation on the training data: choose on k−1 folds, score the held-out fold, repeat. This estimates honestly how much rule selection helps, and rules chosen consistently across folds identify the key rules (a form of stability selection), replacing judgment from a few dozen development cases.
 - **Ask the model only for observations.** Keep every scoring decision, including code-changing rules, out of the prompt and apply it afterwards.
+- **Route unusual responses to human raters.** Operational systems flag responses with abnormal characteristics (very long or very short, repetitive, off-topic) for human scoring rather than scoring them automatically. The codebook's misunderstanding code and flags are natural routing signals; the trade-off between the share of responses sent to humans and the resulting agreement could be measured from the existing codes.
 - **Extend to other items** (ASAP-SAS Sets 1 and 2 are the other balanced science items) to see whether codebook-based scoring holds up when human agreement is lower.
+
+## References
+
+Williamson, D. M., Xi, X., & Breyer, F. J. (2012). A framework for evaluation and use of automated scoring. *Educational Measurement: Issues and Practice, 31*(1), 2–13. https://doi.org/10.1111/j.1745-3992.2011.00223.x
 
 ## Reproducing
 
