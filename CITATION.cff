@@ -7,6 +7,8 @@ authors:
 date-released: 2026-10-05
 version: "1.0"
 license: MIT
+repository-code: "https://github.com/jgf1123/asap_sas_scoring"
+url: "https://github.com/jgf1123/asap_sas_scoring"
 keywords:
   - automated scoring
   - short-answer scoring
