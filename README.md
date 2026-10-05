@@ -95,7 +95,7 @@ Eight test disagreements under the pre-registered configuration, chosen to cover
 | 7 | 27599 | 1 | 0 | N, U | Misconception (C1) |
 | 8 | 27657 | 0 | 1 | flag `physics` | Physics-only claim (B6, variant b) |
 
-Codes are those defined in [the codebook](#the-codebook): E effect, J just right, D direction, N result, P placed, L literal, U misunderstanding; rule IDs refer to [rubric.md](rubric.md). In five of the eight cases the deciding rule runs through the implied-effect rule (C2) or the misconception rule (C1).
+Codes are those defined in [the codebook](#the-codebook): E effect, J just right, D direction, N result, P placed, L literal, U misunderstanding; rule IDs refer to [rubric.md](rubric.md). In four of the eight cases the deciding rule runs through the implied-effect rule (C2) or the misconception rule (C1).
 
 Across the 108 test disagreements, the misconception rule (C1) decided 16 of the 18 the LLM scored 0 against a human 1, the full-credit rules (O4a, O4b) all 27 it scored a point too high, and the physics-claims rule (B6) 21 of the 39 it scored 1 against a human 0.
 
