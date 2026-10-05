@@ -1,0 +1,20 @@
+[workspace]
+authors = ["jgf1123 <jgf1123@gmail.com>"]
+channels = ["conda-forge"]
+name = "asap_sas_scoring"
+platforms = ["win-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+python = "3.12.*"
+pandas = ">=3.0.6,<4"
+numpy = ">=2.5.3,<3"
+scikit-learn = ">=1.9.1,<2"
+matplotlib = ">=3.11.2,<4"
+python-docx = ">=1.2.0,<2"
+pypdf = ">=6.19.0,<7"
+
+[pypi-dependencies]
+anthropic = ">=1.11.0, <2"
