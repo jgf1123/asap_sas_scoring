@@ -62,7 +62,29 @@ The codebook ([rubric.md](rubric.md)) separates *what a response contains* from 
 
 ## Error analysis
 
-*To be added after case review.*
+Eight test disagreements under the pre-registered configuration, chosen to cover different causes: the two severe errors first, then the rest in the order the scoring rules are applied. Responses are paraphrased.
+
+**Severe errors**
+
+1. **Human 0, LLM 2: the implied-effect rule over-credits a bare citation.** The student chose black only because it had the highest average temperature (53 °C) and said nothing about what that would do to the doghouse. The consensus rule that lets a cited comparison stand in for the effect gave full credit; the literal rubric would give 1, and the human gave 0.
+2. **Human 2, LLM 0: a coding miss compounded by a rule.** The student said white turns sunlight away, so the doghouse stays around 40–45 °C. The model did not code the implied cooling effect, and the rule for reading jar temperatures as doghouse temperatures then removed all credit.
+
+**Full credit**
+
+3. **Human 1, LLM 2: a literal reading the rater did penalize.** The student contrasted black's 53 °C with white's 42 °C as if those were the doghouse's summer temperatures. The codebook's rule that a literal reading costs nothing once full credit is met (based on six agreeing development cases, all gray) gave 2; the rater evidently treated the misreading as undermining the argument.
+4. **Human 2, LLM 1: the gray placement rule, plus a scoring rule leaking into coding.** The student argued for light gray as a compromise between white (too cold) and black (too hot), citing the experiment's finding that darker lids got hotter. The model treated that citation as the task's hypothesis restated, a boundary rule that was in its prompt and so applied while coding, so light gray was never placed by evidence and full credit failed.
+
+**Misconception versus full credit (the v1.2 ordering)**
+
+5. **Human 2, LLM 2: the ordering working.** The student said black would insulate the doghouse, a misconception, but also stated that it would keep the inside warm and cited black's highest average. Because full credit outranks the misconception rule, the response kept its 2, matching the human.
+6. **Human 1, LLM 2: the same ordering failing.** The student said black is best at taking in and holding heat and cited its 53 °C average, without saying what that does to the doghouse. Full credit came only through the implied-effect rule; the human gave 1. Of the 8 test responses where the ordering let a misconception keep full credit, the human agreed on 5; in 2 of the 3 disagreements the effect was only implied. That suggests raters tolerate a misconception when the effect is stated but not when it is implied, an observation from too few cases to turn into a rule by hand.
+7. **Human 1, LLM 0: the misconception rule is too strong below full credit.** The student argued black would let less air into the doghouse (off-target) but also cited black's 54 °C jar reading. The rule gives 0 for any misconception short of full credit; the human gave partial credit for the correct use of data.
+
+**Boundary rules**
+
+8. **Human 0, LLM 1: the weakest boundary rule.** The student chose white because it takes in the least energy, with no effect on the doghouse and no experiment result. The rater-leaning variant of the physics-claims rule gave 1; the human gave 0. This rule was wrong on 51% of the remainder responses it decided.
+
+Across the 108 test disagreements, the misconception rule decided most responses the LLM scored too low (16 of 18 where the human gave 1 and the LLM 0), the full-credit rule all 27 it scored a point too high, and the physics-claims rule 21 of the 39 it scored 1 against a human 0.
 
 ## What the rules contributed (exploratory)
 
