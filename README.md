@@ -114,14 +114,33 @@ This analysis was done after the test run and does not change the reported resul
 
 ## References
 
+Hewlett Foundation (2012). *The Hewlett Foundation: Short Answer Scoring* [Data set and competition]. Kaggle. https://www.kaggle.com/c/asap-sas
+
 Williamson, D. M., Xi, X., & Breyer, F. J. (2012). A framework for evaluation and use of automated scoring. *Educational Measurement: Issues and Practice, 31*(1), 2–13. https://doi.org/10.1111/j.1745-3992.2011.00223.x
+
+## Data
+
+This project uses the ASAP Short Answer Scoring dataset (Set 10 only). It is available from the [Kaggle competition page](https://www.kaggle.com/c/asap-sas) after accepting the competition rules; see the page's Rules tab for the terms of use. The data is not redistributed here.
+
+**Files needed in `data/`:** `train.tsv` (training responses with both human scores), `public_leaderboard_rel_2.tsv` (public test responses) and `public_leaderboard_solution.csv` (public test scores). The scoring guide and anchor papers (`Data_Set_Descriptions.zip`, `Training_Materials.zip`) were used to write the codebook but are not needed to rerun it.
+
+**Not included, because they quote student responses:** model outputs with rationales (`results/*.jsonl`), the hand-coding files (`eda/*_codes.csv`) and generated reading lists. Analyses that read these files can be rerun after scoring the data yourself.
+
+**Included:** code, the codebook, pre-registrations, prompt snapshots (`results/*.prompt.txt`), and baseline predictions keyed by response ID (`results/baselines_test_predictions.csv`). Response IDs refer to the ASAP-SAS files and contain no student information.
 
 ## Reproducing
 
-The ASAP-SAS data cannot be redistributed; download it from Kaggle into `data/`. Files that may contain student text (`results/*.jsonl`, `eda/*_codes.csv`) are excluded from the repository.
+Requires [pixi](https://pixi.sh) and an Anthropic API key in `ANTHROPIC_API_KEY`. Scoring the test set costs about $3.50.
 
 ```bash
 pixi run python make_split.py 10
+pixi run python baselines.py --test
 pixi run python score.py --split test --run test_v1.2 --cfg aaaaaa --expect-hash 34e06a141c41
 pixi run python eda/test_analysis.py
 ```
+
+Model outputs will differ slightly from run to run (repeat runs on the development set agreed on 98.3% of scores).
+
+## License and citation
+
+Code is released under the [MIT License](LICENSE). The written documents (this README, the codebook and the notes in `eda/`) are released under [CC BY 4.0](LICENSE-docs.md). The ASAP-SAS item text, data table and scoring-guide material reproduced in the codebook and prompt snapshots belong to their owners and are not covered by either license; see [LICENSE-docs.md](LICENSE-docs.md). To cite this work, use [CITATION.cff](CITATION.cff) (GitHub shows a "Cite this repository" button).
