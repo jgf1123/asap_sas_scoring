@@ -1,9 +1,7 @@
 # pixi environments
 .pixi
 data/
-# run outputs: committed at milestones, not while a run is appending
 results/*.log
-results/dev_v1.1_r*
 __pycache__/
 # generated reading lists quote student responses (Kaggle data: do not redistribute); regenerate with eda/step3*.py
 eda/step3_reading_list.md
@@ -11,3 +9,5 @@ eda/step3e_exceptions.md
 # may contain student responses or fragments (Kaggle data: do not redistribute)
 results/*.jsonl
 eda/*_codes.csv
+# v1.1 prompt snapshots contain a near-verbatim student example (paraphrased in v1.2)
+results/*v1.1*.prompt.txt
