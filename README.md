@@ -1,6 +1,6 @@
 # LLM Short-Answer Scoring with a Written Codebook (ASAP-SAS, Set 10)
 
-Can a large language model score student short answers the way trained human raters do? This project scores one grade 8 science item from the ASAP Short Answer Scoring dataset with Claude Opus 5.5. The model works from a written codebook developed on a 300-response labeled development set, and it uses no labels at scoring time. Its scores are evaluated against the official human scores with quadratic weighted kappa (QWK), the field-standard agreement metric for this task.
+Can a large language model score student short answers the way trained human raters do? This project scores one grade 8 science item from the ASAP Short Answer Scoring dataset with Claude Opus 5.5. The model works from a written codebook developed on a 300-response labeled development set, and it uses no labels at scoring time. Its scores are evaluated against the official human scores with quadratic weighted kappa (QWK), the field-standard agreement metric for this task. It reaches QWK 0.763 on the competition's public test set: modestly above a bag-of-words model trained on 1,640 labeled responses, and 0.12 below agreement between two human raters.
 
 ## Results (competition public test set, one pre-registered run, n = 546)
 
@@ -17,8 +17,8 @@ Can a large language model score student short answers the way trained human rat
 - **Against the supervised baseline**, the LLM is modestly better. The paired bootstrap difference on the same 546 responses is +0.054 [+0.002, +0.109] for the pre-registered configuration and +0.065 [+0.011, +0.123] for the official-leaning one. This paired test was added after the test run and was not pre-registered.
 - **Against operational guidelines** for automated scoring (Williamson, Xi & Breyer, 2012): machine–human QWK of at least 0.70, chosen there as the "tipping point" at which signal outweighs noise; machine–human QWK and Pearson correlation each no more than 0.10 below human–human agreement; and |SMD| ≤ 0.15. The pre-registered configuration meets the 0.70 floor (QWK 0.763, r 0.767) and the SMD limit, and narrowly misses the degradation guideline (QWK 0.12 and r 0.12 below human–human; the official-leaning configuration is 0.109 and 0.103 below). The authors treat these as guidelines rather than hard cutoffs and report using a model operationally whose machine–human QWK was 0.69 against a human–human 0.71. The human–human figures are from the training set, because the test set has a single human score per response, so the degradation comparison is approximate.
 - **Full-scale disagreements are rare.** The LLM gave 0 where the human gave 2, or the reverse, on 2 of 546 test responses (0.4%); the bag-of-words baseline did so on 3, and the two human raters never did across the 1,640 training responses. High-stakes programs often treat scores one point apart as agreement, but on a 0–2 scale one point is half the range, so that convention is not applied here.
-- **The two configurations are interchangeable.** The pre-registered selection rule picked the rater-leaning configuration because it was +0.010 better on the validation set; on test it was −0.011 [−0.044, +0.020] worse. The selection was effectively a coin flip.
-- **Most disagreement is at the boundary between 0 and 1**, where the two configurations err in opposite directions: the official-leaning one is harsher and the rater-leaning one more lenient.
+- **The two configurations are interchangeable.** The pre-registered selection rule picked configuration *b* (the alternative variant of every boundary rule) because it was +0.010 better on the validation set; on test it was −0.011 [−0.044, +0.020] worse. The selection was effectively a coin flip.
+- **Most disagreement is at the boundary between 0 and 1**, where the two configurations err in opposite directions: the official-leaning one is harsher and configuration *b* more lenient.
 
 ## The item and the data
 
@@ -34,7 +34,7 @@ The codebook ([rubric.md](rubric.md)) separates *what a response contains* from 
 
 **Codes:** E, the effect of the chosen color on the doghouse interior; J, a two-sided "not too hot, not too cold" claim; D, a temperature comparison between colors; N, an experiment result cited; P, a result that places the chosen color relative to another lid; L, a jar temperature read as the doghouse's own temperature; U, a misunderstanding of the experiment or the science (off-target reasoning, warmth "at night", contradiction). Flags mark special cases such as a restated hypothesis or a menu color that differs from the argued color.
 
-**Rules** are tiered by source. **O** rules come from the official rubric, the item's scoring guide and the anchor papers. **C** (consensus) rules describe what the two raters did when they agreed, found by coding all 300 development responses (first blind to the scores, then sharpened after seeing them). **B** (boundary) rules cover cases where raters disagreed and come in an official-leaning variant (*a*) and a rater-leaning variant (*b*). **S** is a candidate tendency of one rater. Two findings from building the codebook:
+**Rules** are tiered by source. **O** rules come from the official rubric, the item's scoring guide and the anchor papers. **C** (consensus) rules describe what the two raters did when they agreed, found by coding all 300 development responses (first blind to the scores, then sharpened after seeing them). **B** (boundary) rules cover cases where raters disagreed and come in an official-leaning variant (*a*) and an alternative variant (*b*) meant to follow observed rater behavior; on the development data the *b* variant was closer to the raters for at most two of the six rules. **S** is a candidate tendency of one rater. Two findings from building the codebook:
 
 - **Raters credited an implied effect.** For white or black, "white was the coolest lid, 42 °C" earned full credit by rater consensus without an explicit statement about the doghouse, which the literal rubric requires.
 - **Gray choices needed comparative evidence.** A result about the gray lid alone ("light gray averaged 45 °C") rarely earned full credit. The item's own scoring guide explains this: its examples of acceptable evidence are absolute for white and black but comparative for the grays ("8 °C cooler than black").
@@ -47,7 +47,7 @@ The codebook ([rubric.md](rubric.md)) separates *what a response contains* from 
 
 ## Evaluation design and pre-registration
 
-- The codebook was developed on the 300 development responses only. Evaluation used the 1,340-response remainder once and the test set once.
+- The codebook was developed on the 300 development responses only. The LLM scored the 1,340-response remainder once and the test set once.
 - Before the remainder run, the prompt, the three candidate configurations, the selection rule and the reporting plan were written to [`eda/prereg_remainder.md`](eda/prereg_remainder.md) and committed to git (commit `5ab8e87`, 2026-10-04 19:47). The remainder results were committed at 21:25 and the single test run completed at 22:13. Git timestamps are local and self-reported, so this is a paper trail, not proof.
 - An earlier blind check of the rules on 60 remainder responses was planned in [`eda/prereg_step2.md`](eda/prereg_step2.md) before sampling, but that file was first committed later, so its trail is weaker. Those 60 responses are reported with and without exclusion; excluding them changes remainder QWK by at most 0.004.
 - Development-set estimates were optimistic, as expected for rules tuned there: 0.820–0.835 on development, 0.740–0.750 on the remainder, 0.763–0.775 on test.
@@ -58,7 +58,7 @@ The codebook ([rubric.md](rubric.md)) separates *what a response contains* from 
 |---|---|---|
 | v1.0 | Code-based codebook | Prose rubric replaced by codes plus ranked rules, so detection and scoring can be evaluated separately |
 | v1.1 | Narrowed "self-contradiction" | In a 20-response pilot, the model read seasonal answers ("cooler in summer, warmer in winter") as contradictions, because the codebook's own example had that form |
-| v1.2 | Moved the misconception rule below full credit | In the development runs, four answers that both raters scored 2 were zeroed because they also contained a misconception (e.g., "keeps the dog warm at night"). Reordering raised development QWK from 0.776 to 0.820; on fresh data, reversing it costs 0.029–0.038 |
+| v1.2 | Moved the misconception rule below full credit | In the development runs, four answers that both raters scored 2 were zeroed because they also contained a misconception (e.g., claiming warmth at night). Reordering raised development QWK from 0.776 to 0.820; on fresh data, reversing it costs 0.029–0.038 |
 
 ## Error analysis
 
@@ -82,7 +82,7 @@ Eight test disagreements under the pre-registered configuration, chosen to cover
 
 **Boundary rules**
 
-8. **Response 27657, human 0, LLM 1: the weakest boundary rule.** The student chose white because it takes in the least energy, with no effect on the doghouse and no experiment result. The rater-leaning variant of the physics-claims rule (B6.b) gave 1; the human gave 0. This rule was wrong on 51% of the remainder responses it decided.
+8. **Response 27657, human 0, LLM 1: the weakest boundary rule.** The student chose white because it takes in the least energy, with no effect on the doghouse and no experiment result. Variant *b* of the physics-claims rule (B6.b) gave 1; the human gave 0. This rule was wrong on 51% of the remainder responses it decided.
 
 | # | Response | Human | LLM | Codes present (LLM) | Deciding rule |
 |---|---|---|---|---|---|
@@ -103,7 +103,7 @@ Across the 108 test disagreements, the misconception rule (C1) decided 16 of the
 
 This analysis was done after the test run and does not change the reported result. Numbers are for the remainder set (n = 1,340), with the test set (n = 546) as replication.
 
-**Tiers.** The official rubric alone, applied literally, reaches QWK 0.699 (test 0.692), below the 0.70 operational floor. Adding the consensus rules raises this to 0.769 (test 0.791). Most of that gain comes from a single rule: counting "not too hot, not too cold" as a description of the effect for a gray paint choice. Adding the boundary rules *lowered* QWK (0.750; test 0.763), mostly through one rule that gave partial credit to general physics claims, which was wrong half the time it fired. The rater-specific rule lowered it sharply (0.630).
+**Tiers.** The official rubric alone, applied literally, reaches QWK 0.699 (test 0.692), below the 0.70 operational floor. Adding the consensus rules raises this to 0.769 (test 0.791). Most of that gain comes from a single rule: counting "not too hot, not too cold" as a description of the effect for a gray paint choice. Adding the boundary rules *lowered* QWK (0.750; test 0.763), mostly through one rule that gave partial credit to general physics claims, which was wrong half the time it fired. The rater-specific rule, approximated from the codes, lowered it sharply (0.630).
 
 **Ordering.** The scoring rules form a ranked list in which the first applicable rule decides. Across all 5,040 orderings of the seven ranked rules, QWK ranged from 0.23 to 0.77, but only 72–169 distinct score patterns arose: most orderings are equivalent. Nearly all the variation came from one requirement: the full-credit rule must outrank the general partial-credit rules, the "specific before general" principle known in linguistics as the Elsewhere Condition. The one substantive ordering choice was whether a misconception should override an otherwise complete answer (the v1.2 change, above). The best of all 5,040 orderings beat the one used by only about 0.01, within selection noise.
 
@@ -122,14 +122,8 @@ This analysis was done after the test run and does not change the reported resul
 
 - **Cross-validate the rules themselves.** Because rules are applied to fixed model codes, rule sets and orderings can be selected inside k-fold cross-validation on the training data: choose on k−1 folds, score the held-out fold, repeat. This estimates honestly how much rule selection helps, and rules chosen consistently across folds identify the key rules (a form of stability selection), replacing judgment from a few dozen development cases.
 - **Ask the model only for observations.** Keep every scoring decision, including code-changing rules, out of the prompt and apply it afterwards.
-- **Route unusual responses to human raters.** Operational systems flag responses with abnormal characteristics (very long or very short, repetitive, off-topic) for human scoring rather than scoring them automatically. The codebook's misunderstanding code and flags are natural routing signals; the trade-off between the share of responses sent to humans and the resulting agreement could be measured from the existing codes.
+- **Route unusual responses to human raters.** Williamson, Xi & Breyer (2012) describe operational systems that flag responses with abnormal characteristics (very long or very short, repetitive, off-topic) for human scoring rather than scoring them automatically; current practice may differ. The codebook's misunderstanding code and flags are natural routing signals; the trade-off between the share of responses sent to humans and the resulting agreement could be measured from the existing codes.
 - **Extend to other items** (ASAP-SAS Sets 1 and 2 are the other balanced science items) to see whether codebook-based scoring holds up when human agreement is lower.
-
-## References
-
-Hewlett Foundation (2012). *The Hewlett Foundation: Short Answer Scoring* [Data set and competition]. Kaggle. https://www.kaggle.com/c/asap-sas
-
-Williamson, D. M., Xi, X., & Breyer, F. J. (2012). A framework for evaluation and use of automated scoring. *Educational Measurement: Issues and Practice, 31*(1), 2–13. https://doi.org/10.1111/j.1745-3992.2011.00223.x
 
 ## Data
 
@@ -157,3 +151,9 @@ Model outputs will differ slightly from run to run (repeat runs on the developme
 ## License and citation
 
 Code is released under the [MIT License](LICENSE). The written documents (this README, the codebook and the notes in `eda/`) are released under [CC BY 4.0](LICENSE-docs.md). The ASAP-SAS item text, data table and scoring-guide material reproduced in the codebook and prompt snapshots belong to their owners and are not covered by either license; see [LICENSE-docs.md](LICENSE-docs.md). To cite this work, use [CITATION.cff](CITATION.cff) (GitHub shows a "Cite this repository" button).
+
+## References
+
+Hewlett Foundation (2012). *The Hewlett Foundation: Short Answer Scoring* [Data set and competition]. Kaggle. https://www.kaggle.com/c/asap-sas
+
+Williamson, D. M., Xi, X., & Breyer, F. J. (2012). A framework for evaluation and use of automated scoring. *Educational Measurement: Issues and Practice, 31*(1), 2–13. https://doi.org/10.1111/j.1745-3992.2011.00223.x
