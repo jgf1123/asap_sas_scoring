@@ -94,3 +94,45 @@ Id,column,old,new,reason
 1608,AMT,0,1,split: asks amount/mass of sample
 1626,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
 1626,AMT,0,1,split: asks amount/mass of sample
+5,MAT,1,0,"MAT split: vague materials, equipment list or restated procedure; not asking which samples"
+5,MATV,0,1,"MAT split: vague materials, equipment list or restated procedure"
+123,MAT,1,0,"MAT split: vague materials, equipment list or restated procedure; not asking which samples"
+123,MATV,0,1,"MAT split: vague materials, equipment list or restated procedure"
+220,MAT,1,0,"MAT split: vague materials, equipment list or restated procedure; not asking which samples"
+220,MATV,0,1,"MAT split: vague materials, equipment list or restated procedure"
+299,MAT,1,0,"MAT split: vague materials, equipment list or restated procedure; not asking which samples"
+299,MATV,0,1,"MAT split: vague materials, equipment list or restated procedure"
+318,MAT,1,0,"MAT split: vague materials, equipment list or restated procedure; not asking which samples"
+318,MATV,0,1,"MAT split: vague materials, equipment list or restated procedure"
+460,MAT,1,0,"MAT split: vague materials, equipment list or restated procedure; not asking which samples"
+460,MATV,0,1,"MAT split: vague materials, equipment list or restated procedure"
+741,MAT,1,0,"MAT split: vague materials, equipment list or restated procedure; not asking which samples"
+741,MATV,0,1,"MAT split: vague materials, equipment list or restated procedure"
+1035,MAT,1,0,"MAT split: vague materials, equipment list or restated procedure; not asking which samples"
+1035,MATV,0,1,"MAT split: vague materials, equipment list or restated procedure"
+1079,MAT,1,0,"MAT split: vague materials, equipment list or restated procedure; not asking which samples"
+1079,MATV,0,1,"MAT split: vague materials, equipment list or restated procedure"
+1221,MAT,1,0,"MAT split: vague materials, equipment list or restated procedure; not asking which samples"
+1221,MATV,0,1,"MAT split: vague materials, equipment list or restated procedure"
+1284,MAT,1,0,"MAT split: vague materials, equipment list or restated procedure; not asking which samples"
+1284,MATV,0,1,"MAT split: vague materials, equipment list or restated procedure"
+1428,MAT,1,0,"MAT split: vague materials, equipment list or restated procedure; not asking which samples"
+1428,MATV,0,1,"MAT split: vague materials, equipment list or restated procedure"
+1522,MAT,1,0,"MAT split: vague materials, equipment list or restated procedure; not asking which samples"
+1522,MATV,0,1,"MAT split: vague materials, equipment list or restated procedure"
+272,MAT,1,0,MAT split: asks only the specific kind of sample
+272,MATK,0,1,MAT split: specific kind of sample
+304,MAT,1,0,MAT split: asks only the specific kind of sample
+304,MATK,0,1,MAT split: specific kind of sample
+343,MAT,1,0,MAT split: asks only the specific kind of sample
+343,MATK,0,1,MAT split: specific kind of sample
+569,MAT,1,0,MAT split: asks only the specific kind of sample
+569,MATK,0,1,MAT split: specific kind of sample
+1445,MAT,1,0,MAT split: asks only the specific kind of sample
+1445,MATK,0,1,MAT split: specific kind of sample
+254,MATK,0,1,MAT split: also asks the specific kind of sample
+444,MATV,0,1,MAT split: also mentions materials vaguely
+795,MATV,0,1,MAT split: also mentions materials vaguely
+1159,MATV,0,1,MAT split: also mentions materials vaguely
+1215,MATV,0,1,MAT split: also mentions materials vaguely
+1639,MATV,0,1,MAT split: also mentions materials vaguely

@@ -6,6 +6,10 @@ Override sets so far:
   SIZE split (2026-10-05): SIZE kept for size/shape/surface area/form; new AMT for amount/mass of sample.
     Rule written before a blind re-read of the 66 SIZE responses (scores not consulted during the re-read);
     motivated by step 2 (SIZE credited only +0.40) and step 2b.
+  MAT split (2026-10-05): MAT kept for naming or asking which samples are tested; MATV for vague "materials",
+    equipment lists, or the procedure restated with sample names inserted (the last added while re-reading);
+    MATK for the specific kind of a sample (type of wood/plastic, brand). Rule written before a blind re-read
+    of the 112 MAT responses; motivated by step 2d (MAT involved in 7 of 14 "withholds").
 """
 import pandas as pd
 

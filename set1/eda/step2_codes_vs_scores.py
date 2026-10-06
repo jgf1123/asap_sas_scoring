@@ -22,7 +22,7 @@ from common.evaluate import qwk
 sys.stdout.reconfigure(encoding='utf-8')
 path = sys.argv[1] if len(sys.argv) > 1 else 'set1/eda/dev_codes.csv'
 c = pd.read_csv(path, dtype={'other': str, 'flags': str, 'note': str}).fillna('')
-CODES = [k for k in ['VA', 'VT', 'MAT', 'SIZE', 'AMT', 'RT', 'DRY', 'CS', 'CT'] if k in c]
+CODES = [k for k in ['VA', 'VT', 'MAT', 'MATV', 'MATK', 'SIZE', 'AMT', 'RT', 'DRY', 'CS', 'CT'] if k in c]
 print(f'codes file: {path} | rubric codes: {CODES}')
 d = c.merge(pd.read_csv('data/set1/dev.csv', usecols=['Id', 'Score1', 'Score2']), on='Id', validate='one_to_one')
 d['k'] = d[CODES].sum(axis=1)
