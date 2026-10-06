@@ -1,0 +1,40 @@
+n=1372 ({'remainder': 1372}) | unfinished 51 (excluded from selection)
+best guess on all training responses: QWK 0.881 (all), 0.908 (without unfinished)
+
+== Per-knob reliability (other knobs at best guess) ==
+              knob best guess                 selected (of 100)   responses changed by alternatives  oof gain mean     oof gain range  gain>0 repeats  oof gain w/o unfinished  optimism                                          label
+                VA borderline {'borderline': 61, 'present': 39}         {'off': 829, 'present': 24}        -0.0029 [-0.0045, -0.0005]               0                  -0.0026    0.0034                                       unstable
+                VT borderline                  {'present': 100}          {'off': 49, 'present': 11}         0.0037 [+0.0037, +0.0037]              20                   0.0031   -0.0006                 stable: contradicts best guess
+               MAT borderline                  {'present': 100}         {'off': 445, 'present': 47}         0.0072 [+0.0072, +0.0072]              20                   0.0082    0.0010                 stable: contradicts best guess
+              SIZE borderline  {'borderline': 95, 'present': 5}          {'off': 87, 'present': 18}        -0.0006 [-0.0031, +0.0000]               0                  -0.0004    0.0006                    stable: supports best guess
+                RT borderline  {'borderline': 99, 'present': 1}           {'off': 69, 'present': 8}        -0.0001 [-0.0015, +0.0000]               0                  -0.0001    0.0001                    stable: supports best guess
+               DRY borderline {'borderline': 65, 'present': 35}          {'off': 43, 'present': 11}        -0.0009 [-0.0016, -0.0002]               0                  -0.0010    0.0010                                       unstable
+         container borderline  {'borderline': 94, 'present': 6}         {'off': 244, 'present': 23}        -0.0006 [-0.0025, +0.0000]               0                  -0.0006    0.0006                    stable: supports best guess
+      surroundings borderline  {'present': 94, 'borderline': 6}         {'off': 162, 'present': 25}         0.0010 [-0.0021, +0.0017]              14                   0.0009    0.0008 stable at another setting, gain not consistent
+             COVER borderline  {'borderline': 94, 'present': 6}           {'off': 15, 'present': 5}        -0.0002 [-0.0011, +0.0000]               0                  -0.0002    0.0003                    stable: supports best guess
+              MATV        off                      {'off': 100}  {'present': 88, 'borderline': 108}         0.0000 [+0.0000, +0.0000]               0                   0.0000    0.0000                    stable: supports best guess
+               AMT        off                      {'off': 100} {'present': 165, 'borderline': 197}         0.0000 [+0.0000, +0.0000]               0                   0.0000    0.0000                    stable: supports best guess
+              MATK        off                      {'off': 100}   {'present': 18, 'borderline': 21}         0.0000 [+0.0000, +0.0000]               0                   0.0000    0.0000                    stable: supports best guess
+              MASS        off                      {'off': 100} {'present': 179, 'borderline': 221}         0.0000 [+0.0000, +0.0000]               0                   0.0000    0.0000                    stable: supports best guess
+             RINSE        off                      {'off': 100}   {'present': 57, 'borderline': 74}         0.0000 [+0.0000, +0.0000]               0                   0.0000    0.0000                    stable: supports best guess
+            DESIGN        off                      {'off': 100}  {'present': 46, 'borderline': 148}         0.0000 [+0.0000, +0.0000]               0                   0.0000    0.0000                    stable: supports best guess
+ pooled_borderline   per-code   {'per-code': 67, 'present': 33}                    {'present': 162}        -0.0051 [-0.0120, -0.0010]               0                  -0.0040    0.0056                                       unstable
+surroundings_count       once                     {'once': 100}                    {'separate': 16}         0.0000 [+0.0000, +0.0000]               0                   0.0000    0.0000                    stable: supports best guess
+   container_count       once                     {'once': 100}                    {'separate': 15}         0.0000 [+0.0000, +0.0000]               0                   0.0000    0.0000                    stable: supports best guess
+
+Positive control (official codes credited in >= 80 of 100): {'VA': 100, 'VT': 100, 'MAT': 100, 'SIZE': 100, 'RT': 100, 'DRY': 100, 'container': 100} -> PASS
+
+== Search procedure, nested CV: out-of-fold QWK minus best guess: mean +0.0047, range [-0.0022, +0.0084], > 0 in 18/20 repeats; without unfinished mean +0.0053
+changes from best guess chosen in the 100 outer training sets (count):
+   44  {"MAT": "present", "VT": "present", "surroundings": "present"}
+   11  {"DRY": "present", "MAT": "present", "VA": "present", "VT": "present"}
+   10  {"MAT": "present", "VA": "present", "VT": "present"}
+   10  {"DRY": "present", "MAT": "present", "VT": "present"}
+    8  {"MAT": "present", "VA": "present", "VT": "present", "surroundings": "present"}
+    5  {"MAT": "present", "VT": "present"}
+    2  {"COVER": "present", "MAT": "present", "VT": "present", "surroundings": "present"}
+    2  {"COVER": "present", "MAT": "present", "VA": "present", "VT": "present"}
+    2  {"MAT": "present", "MATV": "present", "VA": "present", "VT": "present"}
+    1  {"MAT": "present", "MATV": "present", "VA": "present", "VT": "present", "surroundings": "present"}
+
+== Configuration selected on all training responses: changes from best guess: {'VT': 'present', 'MAT': 'present', 'surroundings': 'present'}

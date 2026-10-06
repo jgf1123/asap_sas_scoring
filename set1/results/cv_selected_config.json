@@ -1,0 +1,20 @@
+{
+ "VA": "borderline",
+ "VT": "present",
+ "MAT": "present",
+ "SIZE": "borderline",
+ "RT": "borderline",
+ "DRY": "borderline",
+ "container": "borderline",
+ "surroundings": "present",
+ "COVER": "borderline",
+ "MATV": "off",
+ "AMT": "off",
+ "MATK": "off",
+ "MASS": "off",
+ "RINSE": "off",
+ "DESIGN": "off",
+ "pooled_borderline": "per-code",
+ "surroundings_count": "once",
+ "container_count": "once"
+}
