@@ -6,11 +6,13 @@ score.py loads this module for --set 10. Interface every set{N}/config.py provid
   system_prompt(args) -> (system text, cfg label stored with each scored record)
   body(text)          the student's own text, without any menu prefix
   codes_score(row, cfg) -> deterministic score from a record's codes (used by common/evaluate.py)
+  WRAP_REPAIR         whether common/baselines.py adds a line-wrap-repaired bag-of-words variant
 """
 import re
 from pathlib import Path
 
 RUBRIC = Path(__file__).parent / 'rubric.md'
+WRAP_REPAIR = True  # Set 10 text has the line-wrap artifact (common/text_clean.py)
 BOUNDARY_RULES = ['B1', 'B2', 'B3', 'B4', 'B5', 'B6']
 CODES = ['E', 'J', 'D', 'N', 'P', 'L', 'U']
 FLAGS = ['consistency', 'hyp', 'vague', 'mismatch', 'physics']

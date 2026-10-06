@@ -6,9 +6,13 @@ official test set; run it once, alongside the LLM's single test run (set10/eda/p
 
 Text variant for the final bag-of-words baseline: wraps repaired if its CV QWK >= raw (decided on train CV).
 
+--dev fits on the remainder only and predicts the dev set (dev labels unseen), saving predictions to
+set{N}/results/baselines_dev_predictions.csv for comparison with codebook scores on dev.
+
 Usage (from the repo root):
   python common/baselines.py --set 10          # nested CV on train
   python common/baselines.py --set 10 --test   # final test evaluation
+  python common/baselines.py --set 1 --dev     # fit on remainder, predict dev
 """
 import argparse
 import importlib
@@ -44,25 +48,40 @@ def bow_model(vocab=None):
 
 
 def models(vocab):
-    return {'length-only': make_pipeline(FunctionTransformer(body_words), LogisticRegression(max_iter=1000)),
-            'bag-of-words (raw text)': bow_model(),
-            'bag-of-words (wraps repaired)': bow_model(vocab)}
+    m = {'length-only': make_pipeline(FunctionTransformer(body_words), LogisticRegression(max_iter=1000)),
+         'bag-of-words (raw text)': bow_model()}
+    if vocab is not None:
+        m['bag-of-words (wraps repaired)'] = bow_model(vocab)
+    return m
 
 
 def main():
     global conf
     ap = argparse.ArgumentParser()
     ap.add_argument('--set', type=int, required=True)
-    ap.add_argument('--test', action='store_true', help='fit on all train and evaluate on the test set (run once)')
+    mode = ap.add_mutually_exclusive_group()
+    mode.add_argument('--test', action='store_true', help='fit on all train and evaluate on the test set (run once)')
+    mode.add_argument('--dev', action='store_true', help='fit on the remainder only and predict the dev set')
     args = ap.parse_args()
     conf = importlib.import_module(f'set{args.set}.config')
     SET = args.set
 
     train = pd.concat([pd.read_csv(f'data/set{SET}/dev.csv'), pd.read_csv(f'data/set{SET}/remainder.csv')])
     X, y = train.text.to_numpy(), train.Score1.to_numpy()
-    vocab = build_vocab(train.text)  # unsupervised: train text only, no labels
+    vocab = build_vocab(train.text) if conf.WRAP_REPAIR else None  # unsupervised: train text only, no labels
     rows = []
-    if not args.test:
+    if args.dev:
+        rem, dev = pd.read_csv(f'data/set{SET}/remainder.csv'), pd.read_csv(f'data/set{SET}/dev.csv')
+        if vocab is not None:
+            vocab = build_vocab(rem.text)
+        out = dev[['Id']].copy()
+        for name, model in models(vocab).items():
+            model.fit(rem.text.to_numpy(), rem.Score1.to_numpy())
+            out[name] = model.predict(dev.text.to_numpy())
+            rows.append(report(dev.Score1, out[name], f'{name} (fit remainder, dev)'))
+        rows.append(report(dev.Score1, dev.Score2, 'Score2 (human reference, dev)'))
+        out.to_csv(f'set{SET}/results/baselines_dev_predictions.csv', index=False)
+    elif not args.test:
         outer = StratifiedKFold(5, shuffle=True, random_state=0)
         for name, model in models(vocab).items():
             pred = cross_val_predict(model, X, y, cv=outer, n_jobs=1)
