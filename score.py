@@ -60,6 +60,7 @@ def main():
     print(f'{args.run}: {len(todo)} to score ({len(done)} already done) | model={args.model} '
           f'effort={args.effort} cfg={cfg} prompt={prompt_hash}')
 
+    prepare = getattr(conf, 'prepare', lambda t: t)  # optional per-set text preparation (Set 1: ^p -> line break)
     client = anthropic.Anthropic(max_retries=5)
     for i, row in enumerate(todo.itertuples(), 1):
         t0 = time.time()
@@ -70,7 +71,7 @@ def main():
                 model=args.model,
                 max_tokens=16000,
                 system=[{'type': 'text', 'text': system_text, 'cache_control': {'type': 'ephemeral'}}],
-                messages=[{'role': 'user', 'content': f'<response>\n{row.text}\n</response>'}],
+                messages=[{'role': 'user', 'content': f'<response>\n{prepare(row.text)}\n</response>'}],
                 output_config={'effort': args.effort, 'format': {'type': 'json_schema', 'schema': conf.SCHEMA}},
             )
             rec['stop_reason'] = resp.stop_reason
@@ -91,7 +92,8 @@ def main():
         rec['seconds'] = round(time.time() - t0, 1)
         with out.open('a', encoding='utf-8') as f:
             f.write(json.dumps(rec) + '\n')
-        print(f'  [{i}/{len(todo)}] {row.Id}: score={rec.get("score")} {rec.get("error", "")}')
+        status = rec['error'] if 'error' in rec else (f'score={rec["score"]}' if 'score' in rec else 'coded')
+        print(f'  [{i}/{len(todo)}] {row.Id}: {status}')
 
 
 if __name__ == '__main__':
