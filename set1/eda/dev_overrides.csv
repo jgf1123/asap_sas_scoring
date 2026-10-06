@@ -1,0 +1,96 @@
+Id,column,old,new,reason
+10,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+10,AMT,0,1,split: asks amount/mass of sample
+54,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+54,AMT,0,1,split: asks amount/mass of sample
+205,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+205,AMT,0,1,split: asks amount/mass of sample
+250,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+250,AMT,0,1,split: asks amount/mass of sample
+260,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+260,AMT,0,1,split: asks amount/mass of sample
+354,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+354,AMT,0,1,split: asks amount/mass of sample
+362,AMT,0,1,split: asks both size/shape and amount/mass of sample
+391,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+391,AMT,0,1,split: asks amount/mass of sample
+409,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+409,AMT,0,1,split: asks amount/mass of sample
+428,AMT,0,1,split: asks both size/shape and amount/mass of sample
+435,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+435,AMT,0,1,split: asks amount/mass of sample
+459,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+459,AMT,0,1,split: asks amount/mass of sample
+513,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+513,AMT,0,1,split: asks amount/mass of sample
+554,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+554,AMT,0,1,split: asks amount/mass of sample
+558,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+558,AMT,0,1,split: asks amount/mass of sample
+622,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+622,AMT,0,1,split: asks amount/mass of sample
+729,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+729,AMT,0,1,split: asks amount/mass of sample
+749,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+749,AMT,0,1,split: asks amount/mass of sample
+762,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+762,AMT,0,1,split: asks amount/mass of sample
+782,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+782,AMT,0,1,split: asks amount/mass of sample
+785,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+785,AMT,0,1,split: asks amount/mass of sample
+795,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+795,AMT,0,1,split: asks amount/mass of sample
+815,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+815,AMT,0,1,split: asks amount/mass of sample
+880,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+880,AMT,0,1,split: asks amount/mass of sample
+885,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+885,AMT,0,1,split: asks amount/mass of sample
+896,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+896,AMT,0,1,split: asks amount/mass of sample
+978,AMT,0,1,split: asks both size/shape and amount/mass of sample
+1031,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+1031,AMT,0,1,split: asks amount/mass of sample
+1052,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+1052,AMT,0,1,split: asks amount/mass of sample
+1057,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+1057,AMT,0,1,split: asks amount/mass of sample
+1065,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+1065,AMT,0,1,split: asks amount/mass of sample
+1075,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+1075,AMT,0,1,split: asks amount/mass of sample
+1079,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+1079,AMT,0,1,split: asks amount/mass of sample
+1167,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+1167,AMT,0,1,split: asks amount/mass of sample
+1183,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+1183,AMT,0,1,split: asks amount/mass of sample
+1257,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+1257,AMT,0,1,split: asks amount/mass of sample
+1326,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+1326,AMT,0,1,split: asks amount/mass of sample
+1349,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+1349,AMT,0,1,split: asks amount/mass of sample
+1380,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+1380,AMT,0,1,split: asks amount/mass of sample
+1404,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+1404,AMT,0,1,split: asks amount/mass of sample
+1430,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+1430,AMT,0,1,split: asks amount/mass of sample
+1459,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+1459,AMT,0,1,split: asks amount/mass of sample
+1533,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+1533,AMT,0,1,split: asks amount/mass of sample
+1556,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+1556,AMT,0,1,split: asks amount/mass of sample
+1560,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+1560,AMT,0,1,split: asks amount/mass of sample
+1573,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+1573,AMT,0,1,split: asks amount/mass of sample
+1599,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+1599,AMT,0,1,split: asks amount/mass of sample
+1608,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+1608,AMT,0,1,split: asks amount/mass of sample
+1626,SIZE,1,0,"split: asks amount/mass of sample, not size or shape"
+1626,AMT,0,1,split: asks amount/mass of sample
