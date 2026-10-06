@@ -1,0 +1,19 @@
+Id,column,old,new,reason,score_seen
+19,CT,1,0,§3 equipment list (graduated cylinders as equipment),0
+19,MASS,1,0,§3 equipment list (scale as equipment),0
+54,RT,1,0,§3 unstated: rinse time inferred from scrambled text,0
+564,VA,1,0,§3 unstated referent: 'how much to put in each container',1
+645,VA,1,0,§3 unstated: amount of vinegar not said ('how vinegar'),1
+652,MASS,1,0,§3 equipment: 'you will also need a three beam scale',0
+818,ENVT,1,0,temperature refers to drying (already DRY),0
+989,MAT,1,0,§3 ambiguous: 'what they are getting the mass of',0
+1000,VA,1,0,§3 unstated referent: water not vinegar,1
+1035,DRY,1,0,§3 equipment list (paper to dry on),1
+1035,MASS,1,0,§3 equipment list (mass scale),1
+1404,AMT,1,0,§3 unstated: 'same ending mass' meaning unclear,0
+1607,CT,1,0,re-read: 'what material' refers to the samples not the container,1
+1607,MAT,0,1,re-read: 'what material ... to put the material in' = which samples,1
+304,VT,1,0,§3 catch-all: 'brands of all the products' (found in step 3; not a rule candidate),1
+304,MATK,1,0,§3 catch-all: 'brands of all the products' (found in step 3; not a rule candidate),1
+1152,CT,1,0,§3 substitution: 'instead of containers use glass bottles' (found in step 3; not a rule candidate),1
+1152,flags,,change,§3 substitution (found in step 3; not a rule candidate),1
