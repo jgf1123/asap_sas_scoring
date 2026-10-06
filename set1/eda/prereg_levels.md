@@ -29,3 +29,19 @@ disagreement: Score1 ≠ Score2 (32 dev responses); agreement: Score1 = Score2 (
 - Mismatches between the `borderline` entries and the level-1 codes.
 - Agreement with my binary dev codes (`eda/dev_codes_v01.csv`) on present vs absent.
 - Scores under the primary rule (only present counts) and with borderline also counted, against Score1.
+
+## Results (added 2026-10-06 after the run; predictions above unchanged)
+
+Run `dev_v0.2`: 300 of 300 coded, no errors; repeat run `dev_v0.2_repeat20`. Analysis: `eda/step6_levels_dev.py`.
+
+1. **Usage: holds.** 90 of 5,400 cells borderline (1.67%).
+2. **Validity: fails narrowly.** Responses with a borderline code: 14/32 (43.8%) of rater disagreements vs
+   64/268 (23.9%) of agreements, ratio 1.83 (< 2). Exploratory, not pre-registered: restricted to credited
+   codes, ratio 1.72. `eda/step6b_codes_in_disagreement.py` suggests why: in only 5 of 32 disagreements does a
+   borderline code change the score; in most others the model is confident about the text and the raters
+   differ on whether a clearly present item earns credit (vague materials, amount of sample, specific kind,
+   mass measurement, a second surroundings item).
+3. **Consistency:** on 20 repeated responses, 8 and 7 borderline cells, 6 in both; 99.2% of cells identical.
+
+Reasons: (a) 5, (b) 5, (c) 14, (d) 46, (e) 19, (f) 1. Descriptive scores against Score1 (dev, not held out):
+present only QWK 0.877, exact 0.807, SMD −0.13; borderline also counted QWK 0.896, exact 0.837, SMD −0.02.
