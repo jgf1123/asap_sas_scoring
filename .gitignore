@@ -8,7 +8,7 @@ set*/eda/step3_reading_list.md
 set*/eda/step3e_exceptions.md
 # may contain student responses or fragments (Kaggle data: do not redistribute)
 set*/results/*.jsonl
-set*/eda/*_codes.csv
+set*/eda/*_codes*.csv
 # v1.1 prompt snapshots contain a near-verbatim student example (paraphrased in v1.2)
 set*/results/*v1.1*.prompt.txt
 set*/eda/error_candidates.md
