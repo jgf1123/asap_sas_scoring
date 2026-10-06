@@ -1,6 +1,6 @@
 # Scoring Codebook: ASAP-SAS Set 1 ("Acid Rain")
 
-*Draft v0.1 (2026-10-05), for review. A rater (human or LLM) records **codes**: what information a response
+*Draft v0.2 (2026-10-06; v0.1 2026-10-05), for review. A rater (human or LLM) records **codes**: what information a response
 identifies as missing. Deterministic **scoring rules** then turn the codes into a score.*
 
 **Assembly.** §1–§4 are the scoring prompt: the model records codes only and never sees the scoring rules.
@@ -98,11 +98,33 @@ Record each code at most once, however many times it is mentioned.
 
 **Other:** list any other information the response identifies as missing, in a few words each.
 
+**Levels.** Record each code at one of three levels:
+
+| Level | When |
+|---|---|
+| **2 present** | the response clearly identifies this information as missing or needed (§3) |
+| **1 borderline** | the response may identify it, and one of the reasons below applies |
+| **0 absent** | otherwise |
+
+Borderline reasons (record the letter for every borderline code):
+- **(a) vague:** the wording is general enough to mean this or something else.
+- **(b) referent:** what the information refers to is unstated, unclear, or possibly the wrong word.
+- **(c) garbled:** the text is scrambled, misspelled past recognition, or cut off at that point.
+- **(d) framing:** unclear whether the response asks for this information or instead lists equipment, suggests a change,
+  restates the procedure, asks only that something be kept the same, or asks why.
+- **(e) two readings:** the phrase fits this code under one reading and another code (or none) under another.
+- **(f) other:** another reason; state it in a few words.
+
+If you cannot name a reason, the code is present or absent, not borderline. If a vague mention fits a code made
+for it (vague "materials" is MATV; amount of sample is AMT), record that code as present instead of marking
+another code borderline.
+
 ---
 
 ## 5. Scoring rules (applied to the codes by `score_from_codes.py`; not in the prompt)
 
-The score is the number of distinct credited pieces of information, at most 3.
+The score is the number of distinct credited pieces of information, at most 3. A code counts only when it is
+recorded **present (2)**; borderline (1) is not credited (crediting it is a secondary analysis, see §6).
 
 - **[O1] Count:** 3 pieces → 3, 2 → 2, 1 → 1, none → 0.
 - **[O2] Rubric pieces:** VA, VT, MAT, SIZE, RT and DRY each count as one piece.
@@ -137,3 +159,9 @@ full stop cannot be detected from the text.
 **RINSE.** Rinse-water amount was not credited on agreed dev cases (n = 14). Rinse method or count appeared
 twice (1247, 271), both rater disagreements in which only Score1 gave credit, so there is no consensus
 evidence for it; it stays uncredited under C3.
+
+**Levels (v0.2).** v0.1 recorded codes as 1/0. v0.2 adds a borderline level with stated reasons, because dev
+showed repeated borderline cases (vague wording, unstated or mistaken referents, garbled or cut-off text,
+framing, two readings). Primary rule: only present counts. Secondary analyses: crediting borderline, and
+routing responses whose score depends on a borderline code to human review. Predictions about how often the
+level is used and whether it tracks rater disagreement: `eda/prereg_levels.md`.
