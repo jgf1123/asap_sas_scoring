@@ -1,11 +1,11 @@
 cff-version: 1.2.0
 message: "If you use or refer to this work, please cite it as below."
-title: "LLM Short-Answer Scoring with a Written Codebook (ASAP-SAS, Set 10)"
+title: "LLM Short-Answer Scoring with a Written Codebook (ASAP-SAS, Sets 10 and 1)"
 authors:
   - family-names: Fung
     given-names: James
-date-released: 2026-10-05
-version: "1.0"
+date-released: 2026-10-10
+version: "1.1"
 license: MIT
 repository-code: "https://github.com/jgf1123/asap_sas_scoring"
 url: "https://github.com/jgf1123/asap_sas_scoring"
