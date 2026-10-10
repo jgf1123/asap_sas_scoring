@@ -7,9 +7,9 @@ Can a large language model score student short answers the way trained human rat
 | Set | Item | Status | Test QWK (pre-registered) | Human–human QWK |
 |---|---|---|---|---|
 | [10](set10/README.md) | "Doghouse", grade 8 science | Complete | 0.763 | 0.884 |
-| [1](set1/README.md) | Grade 10 science | In progress | – | – |
+| [1](set1/README.md) | "Acid Rain", grade 10 science | Complete | 0.895 | 0.944 |
 
-Set 10 came first because its scoring guide lists explicit components, its score distribution is balanced and its raters agree well. Set 1 is the next balanced science item. The method there applies lessons from Set 10 (see [set10/README.md](set10/README.md#future-work)).
+Set 10 came first because its scoring guide lists explicit components, its score distribution is balanced and its raters agree well. Set 1, the next balanced science item, applies the lessons from Set 10: the model records codes only, codes are recorded as present, borderline or absent, and every scoring rule is rated by cross-validation before a single pre-registered test run (see [set1/README.md](set1/README.md#what-changed-from-set-10)). The two items are not directly comparable: Set 1's rubric counts pieces of information, which maps naturally onto codes.
 
 ## Repository layout
 

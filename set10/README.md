@@ -125,7 +125,7 @@ This analysis was done after the test run and does not change the reported resul
 - **Cross-validate the rules themselves.** Because rules are applied to fixed model codes, rule sets and orderings can be selected inside k-fold cross-validation on the training data: choose on k−1 folds, score the held-out fold, repeat. This estimates honestly how much rule selection helps, and rules chosen consistently across folds identify the key rules (a form of stability selection), replacing judgment from a few dozen development cases.
 - **Ask the model only for observations.** Keep every scoring decision, including code-changing rules, out of the prompt and apply it afterwards.
 - **Route unusual responses to human raters.** Williamson, Xi & Breyer (2012) describe operational systems that flag responses with abnormal characteristics (very long or very short, repetitive, off-topic) for human scoring rather than scoring them automatically; current practice may differ. The codebook's misunderstanding code and flags are natural routing signals; the trade-off between the share of responses sent to humans and the resulting agreement could be measured from the existing codes.
-- **Extend to other items** (ASAP-SAS Sets 1 and 2 are the other balanced science items) to see whether codebook-based scoring holds up when human agreement is lower.
+- **Extend to other items** (ASAP-SAS Sets 1 and 2 are the other balanced science items) to see whether codebook-based scoring holds up on items with different rubrics. *Update: Set 1 is done ([set1/README.md](../set1/README.md)); its human agreement turned out higher than Set 10's (QWK 0.944), not lower as expected here.*
 
 ## Data
 
